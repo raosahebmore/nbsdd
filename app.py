@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Spyder Editor
 
-This is a temporary script file.
-"""
 
 import pandas as pd
 import numpy as np
@@ -18,9 +14,6 @@ N = 100000
 app = dash.Dash()
 app.config['suppress_callback_exceptions']=True
 
-#US_STATES_URL = 'https://raw.githubusercontent.com/plotly/datasets/master/2014_usa_states.csv'
-
-#US_AG_URL = 'https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv'
 
 app.layout = html.Div(
     html.H1(children='Hello Dash'))
