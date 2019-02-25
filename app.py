@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Spyder Editor
-
 This is a temporary script file.
 """
 
 # -*- coding: utf-8 -*-
 """
 Created on Fri Feb 22 20:18:43 2019
-
 @author: HP
 """
 
@@ -137,35 +135,24 @@ new_data = grp_by_prj.rename(columns = {"flat_cnt": "Apartment Count",
 
 
 def df_to_table(df):
-    return html.Table(
-        # Header
-        [html.Tr([html.Th(col) for col in df.columns])] +
-        
+    return dbc.Table(
+            # Header
+            [html.Thead([html.Tr([html.Th(col) for col in df.columns])])] +
+
+            # Body
+            [html.Tbody([html.Tr([html.Td(html.A(df.iloc[i][col]))
+                for col in df.columns])
+                for i in range(len(df))])]
+            ,style={'backgroundColor':'white','font-size': '10px','height':'10px','color': 'blue','text-align':'left','width': '100%'}
+        )
+
         # Body
-        [
-            html.Tr(
-                [
-                    html.Td(df.iloc[i][col])
-                    for col in df.columns
-                ]
-            )
-            for i in range(len(df))
-        ])
 def df_to_table2(df):
-    return html.Table(
-        # Header
-        [html.Tr([html.Th(col,style={'padding':'10px'}) for col in df.columns])] +
-        
-        # Body
-        [
-            html.Tr(
-                [
-                    html.Td(df.iloc[i][col],style={'font-size':'50px','font-family': "Bookman",'font-weight': 'bold','padding':'10px'})
-                    for col in df.columns
-                ]
-            )
-            for i in range(len(df))
-        ])            
+    table_header = [html.Thead(html.Tr([html.Th("Sold Area(MSqFt)"), html.Th("Flat Count"),html.Th(df.columns[2]+"(Cr.)"),html.Th(df.columns[3]+"(Cr.)"),html.Th(df.columns[4]+"(Cr.)")]))]
+    row1 = html.Tr([html.Td(df.iloc[0]["Sale Area"]),html.Td(df.iloc[0]["Apartment Count"]),html.Td(df.iloc[0]["Agreement Value"]),html.Td(df.iloc[0]["AV for Brokerage"]),html.Td(df.iloc[0]["Brokerage Amount"])] )
+    table_body = [html.Tbody([row1])]
+    table = dbc.Table(table_header + table_body,bordered=True,style={'backgroundColor':'white','font-size': '18px','color': 'blue','text-align':'left','width': '60%'}) #bordered=True,dark=True,hover=True,responsive=True,size='lg',
+    return  table
     
 a_x = html.Div(children=[
     html.H2(children='''Projects Sales Comparision''',style={'margin':'25px'}),
@@ -505,5 +492,5 @@ def updatesumry(sumry):
   
 
 if __name__ == '__main__':
-
     app.run_server(debug=True)
+
