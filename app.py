@@ -134,6 +134,50 @@ new_data = grp_by_prj.rename(columns = {"flat_cnt": "Apartment Count",
                              "Brokearge_Amt": "Brokerage Amount" }) 
 
 
+
+    
+a_bar=dcc.Graph(
+    figure=go.Figure(
+        data=[
+            go.Bar(
+                x=new_data["Project"],
+                y=new_data["Agreement Value"],
+                name='Agreement Value',
+                marker=go.bar.Marker(
+                    color='rgb(55, 83, 109)'
+                )
+            ),
+            go.Bar(
+                    x=new_data["Project"],
+                    y=new_data["AV for Brokerage"],
+                    name='AV for Brokerage',
+                    marker=go.bar.Marker(
+                    color='rgb(0, 255, 0)'
+                )
+            ),
+            go.Bar(
+                    x=new_data["Project"],
+                    y=new_data["Brokerage Amount"],
+                    name="Brokerage Amount",
+                    marker=go.bar.Marker(
+                    color='rgb(255, 0, 0)'
+                )
+            )
+        ],
+        layout=go.Layout(
+            title='Agreement Value',
+            showlegend=True,
+            legend=go.layout.Legend(
+                x=0,
+                y=1.0
+            ),
+            margin=go.layout.Margin(l=40, r=0, t=40, b=30)
+        )
+    ),
+    id='my-graph'
+)
+
+    
 def df_to_table(df):
     return dbc.Table(
             # Header
@@ -155,7 +199,7 @@ def df_to_table2(df):
     return  table
     
 a_x = html.Div(children=[
-    html.H2(children='''Projects Sales Comparision''',style={'margin':'25px'}),
+    html.H2(children='''Projects Sales Comparision''',style={'margin':'16px','color':'blue'}),
        dbc.Card(
             [
                 
@@ -168,43 +212,35 @@ a_x = html.Div(children=[
             ],color="dark",inverse=True,style={'margin':'2%'}
         ),
   dbc.Card(
-            [
-                
-                dbc.CardBody(
-                    [
-                        html.Div([ 
-      html.Div([
-    dcc.Graph(
-        id='col1',
-        figure={
-            'data': [trace,],
-            'layout':go.Layout(title='Units Sold',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=400,height=300)  #, barmode='stack'
-        })], style={'width': '20%','display': 'inline-block'}),
-      html.Div([
-    dcc.Graph(
-        id='col2',
-        figure={
-            'data': [trace1],
-            'layout':go.Layout(title='Agreement Value',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=400,height=300) #, barmode='stack'
-        })
-    ], style={'width': '20%','display': 'inline-block'}),
- html.Div([
-    dcc.Graph(  
-        id='col3',
-        figure={
-            'data': [trace2],
-            'layout':go.Layout(title='AV for Brokerage',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=400,height=300)  #, barmode='stack'
-        })], style={'width': '20%','display': 'inline-block'}),
-     
-                    
-], style={'backgroundColor':'white','width': '100%','display': 'inline-block'})  ,
-
-                    ]
-                ),
-            ],style={'margin':'2%'}
-        )              
+            [dbc.CardBody(
+                        [
+                        html.Div([
+                                        a_bar 
+                                                ], style={'width': '50%','display': 'inline-block'}
+                            ),
+                        html.Div([
+                            dcc.Graph(
+                                    id='col2',
+                                    figure={
+                                    'data': [trace1],
+                                    'layout':go.Layout(title='Agreement Value',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=400,height=300) #, barmode='stack'
+                                    })
+                            ], style={'width': '25%','display': 'inline-block'}
+                            ),
+                        html.Div([
+                            dcc.Graph(  
+                                id='col3',
+                                figure={
+                                'data': [trace2],
+                                'layout':go.Layout(title='AV for Brokerage',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=400,height=300)  #, barmode='stack'
+                                })], style={'width': '25%','display': 'inline-block'}),
+                    ], style={'backgroundColor':'white','width': '100%','display': 'inline-block'}
+                    ),
+            ]
+        ),
+],style={'margin':'2%'}
+)              
   
-])
 # Create a Dash layout
 app.layout = html.Div([
     html.Div(
@@ -464,7 +500,7 @@ def updatesumry(sumry):
         showscale=True
     )
                             )],
-            'layout':go.Layout(title='Units Sold',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=600,height=400)  #, barmode='stack'
+            'layout':go.Layout(title='Agreement Value/Brokerage Amount',legend=dict(x=-0.3,y=-0.9,font=dict(size=9)),width=600,height=400)  #, barmode='stack'
         })], style={'width': '40%'})
                     ]
                 ),
@@ -488,8 +524,7 @@ def updatesumry(sumry):
 
    ]
     
-    
-  
+ 
 
 if __name__ == '__main__':
     app.run_server(debug=True)
