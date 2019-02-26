@@ -162,12 +162,8 @@ a_bar=dcc.Graph(
         ],
         layout=go.Layout(
             title='Agreement Value',
-            showlegend=True,
-            legend=go.layout.Legend(
-                x=0,
-                y=1.0
-            ),
-            margin=go.layout.Margin(l=40, r=0, t=40, b=30)
+            showlegend=True
+           
         )
     ),
     id='my-graph'
