@@ -142,27 +142,23 @@ a_bar=dcc.Graph(
             go.Bar(
                 x=new_data["Project"],
                 y=new_data["Agreement Value"],
-                name='Agreement Value',
-                marker=go.bar.Marker(
-                    color='rgb(55, 83, 109)'
-                )
+                name='Agreement Value'
+                
             ),
             go.Bar(
                     x=new_data["Project"],
                     y=new_data["AV for Brokerage"],
                     name='AV for Brokerage',
-                    marker=go.bar.Marker(
-                    color='rgb(0, 255, 0)'
+                   
                 )
-            ),
+            ,
             go.Bar(
                     x=new_data["Project"],
                     y=new_data["Brokerage Amount"],
-                    name="Brokerage Amount",
-                    marker=go.bar.Marker(
-                    color='rgb(255, 0, 0)'
+                    name="Brokerage Amount"
+                   
                 )
-            )
+            
         ],
         layout=go.Layout(
             title='Agreement Value',
